@@ -150,6 +150,95 @@ function business_widgets_init() {
 }
 add_action( 'widgets_init', 'business_widgets_init' );
 
+function business_get_social_menu_markup() {
+	$social_networks = array(
+		'facebook'			=> get_theme_mod( 'url_facebook' ),
+		'twitter'				=> get_theme_mod( 'url_twitter' ),
+		'instagram'			=> get_theme_mod( 'url_instagram' ),
+		'google-plus'		=> get_theme_mod( 'url_google' ),
+		'linkedin'			=> get_theme_mod( 'url_linkedin' ),
+	);
+
+	$active_social_networks = array_filter( $social_networks, function( $value, $key ) {
+		return $value; // return where true
+	}, ARRAY_FILTER_USE_BOTH ); // for clarity
+
+	if ( ! empty( $active_social_networks ) ) : ?>
+		<div class="social">
+		<?php foreach( $active_social_networks as $network => $url ) { ?>
+
+			<a href="<?php printf( esc_html__( '%s', 'business' ), esc_url( trim( $url ) ) ); ?>" target="_blank" class="icon icon-<?php printf( esc_attr__( '%s', 'business' ), strtolower( $network ) ); ?>">
+				<span class="screen-reader-text"><?php printf( esc_html__( '%s', 'business' ), ucwords( $network ) ); ?></span>
+				<i class="fa fa-<?php printf( esc_html__( '%s', 'business' ), strtolower( $network ) ); ?>"></i>
+			</a>
+
+		<?php } ?>
+		</div>
+	<?php endif;
+}
+
+function business_get_business_info_markup() {
+	$options = array(
+		'display_full_address'						=> get_theme_mod( 'display_full_address' ),
+		'show_business_info_icons'				=> get_theme_mod( 'show_business_info_icons' ),
+		'show_business_info_city-state'		=> get_theme_mod( 'show_business_info_address' ),
+		'show_business_info_email'				=> get_theme_mod( 'show_business_info_email' ),
+		'show_business_info_phone'				=> get_theme_mod( 'show_business_info_phone' ),
+	);
+
+	$fields = array(
+		'city-state'				=> array(
+			'icon' 			=> 'map-marker',
+			'theme_mod'	=> get_theme_mod( 'business_city_state' ),
+		),
+		'address'						=> array(
+			'icon'			=> '',
+			'theme_mod'	=> get_theme_mod( 'business_address' ),
+		),
+		'email'							=> array(
+			'icon'			=> 'envelope',
+			'theme_mod'	=> get_theme_mod( 'business_email' ),
+		),
+		'phone'							=> array(
+			'icon'			=> 'phone',
+			'theme_mod'	=> get_theme_mod( 'business_phone' ),
+		),
+	);
+
+	$active_options = array_filter( $options, function( $value, $key ) {
+		return $value;
+	}, ARRAY_FILTER_USE_BOTH ); // for clarity
+
+	$active_fields = array_filter( $fields, function( $value, $key ) {
+		return $value[ 'theme_mod' ];
+	}, ARRAY_FILTER_USE_BOTH ); // for clarity
+
+	if ( ! empty( $active_options ) || ! empty( $active_fields ) ) : ?>
+		<div class="business-information">
+
+		<?php if ( $options[ 'display_full_address' ] == 1 ) :
+			$active_fields[ 'city-state' ][ 'theme_mod' ] = $active_fields[ 'address' ][ 'theme_mod' ] . ', ' . $active_fields[ 'city-state' ][ 'theme_mod' ];
+		endif; ?>
+
+		<?php foreach( $active_fields as $field => $info_arr ) {
+			if ( $field == 'address' ) :
+				continue;
+			endif;
+
+			if ( $options[ 'show_business_info_'.$field ] == 1 ) : ?>
+			<div class="<?php echo esc_attr( $field ); ?>">
+				<?php if ( $options[ 'show_business_info_icons' ] == 1 && $info_arr[ 'icon' ] ) : ?>
+					<span class="icon fa fa-<?php echo esc_attr( $info_arr[ 'icon' ] ); ?>"></span>
+				<?php endif; ?>
+					<span><?php esc_html_e( $info_arr[ 'theme_mod' ] ); ?></span>
+			</div>
+			<?php endif;
+		} ?>
+
+		</div>
+	<?php endif;
+}
+
 function business_navigation_localize_vars() {
 	$businessNavigation = array();
 	$businessNavigation[ 'screenReaderText' ] = array(
@@ -175,8 +264,9 @@ function business_scripts() {
 	wp_enqueue_style( 'business-style', get_stylesheet_uri() );
 
 	wp_enqueue_script( 'business-navigation', get_template_directory_uri() . '/js/navigation.js', array( 'jquery' ), '20151215', true );
-
 	wp_localize_script( 'business-navigation', 'businessNavigation', business_navigation_localize_vars() );
+
+	wp_enqueue_script( 'business-functions', get_template_directory_uri() . '/js/functions.js', array( 'jquery' ), '20151215', true );
 
 	wp_enqueue_script( 'business-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 

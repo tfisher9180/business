@@ -1,5 +1,15 @@
-$font__main: sans-serif;
+$fa-font-path: './fonts';
+
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semi-bold: 600;
+$font-weight-bold: 700;
+$font-letter-spacing: -0.02em;
+
+$font__main: 'Montserrat', sans-serif;
 $font__code: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
 $font__pre: "Courier 10 Pitch", Courier, monospace;
-$font__line-height-body: 1.5;
+$font__line-height-body: 1.6;
 $font__line-height-pre: 1.6;
+$font__line-height-headings: 1.2;

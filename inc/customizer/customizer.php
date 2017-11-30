@@ -38,6 +38,16 @@ function business_customize_register( $wp_customize ) {
 	require get_template_directory() . '/inc/customizer/theme-options/navigation.php';
 
 	/**
+	 * Theme Options - Social Networking
+	**/
+	require get_template_directory() . '/inc/customizer/theme-options/social-networking.php';
+
+	/**
+	 * Theme Options - Business Information
+	**/
+	require get_template_directory() . '/inc/customizer/theme-options/business-information.php';
+
+	/**
 	 * Sanitize Callbacks
 	**/
 	require get_template_directory() . '/inc/customizer/sanitizations.php';

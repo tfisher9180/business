@@ -1,0 +1,18 @@
+#topbar {
+  background-color: $color-headings;
+
+  .toggle-content,
+  .toggle-btn {
+    width: 100%;
+  }
+
+  .toggle-content {
+    order: 1;
+  }
+
+  .toggle-btn {
+    order: 2;
+    padding: 10px 0;
+    font-size: 1.2em;
+  }
+}

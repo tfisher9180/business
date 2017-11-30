@@ -24,6 +24,31 @@
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'business' ); ?></a>
 
+	<header id="site-header">
+
+		<?php if ( get_theme_mod( 'enable_topbar' ) == 1 ) : ?>
+		<div id="topbar">
+			<div class="container">
+				<div class="row">
+					<div class="flex-container column">
+						<button type="button" class="btn toggle-btn" aria-controls="topbar-content" aria-expanded="false">
+							<span class="screen-reader-text"><?php esc_html_e( 'Toggle topbar with business info', 'business' ); ?></span>
+							<span class="fa fa-angle-down"></span>
+						</button>
+						<div id="topbar-content" class="toggle-content" aria-expanded="false">
+							<div class="flex-container between col">
+								<?php business_get_business_info_markup(); ?>
+								<?php business_get_social_menu_markup(); ?>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<?php endif; ?>
+
+	</header>
+
 	<header id="masthead" class="site-header">
 		<div class="site-branding">
 			<?php

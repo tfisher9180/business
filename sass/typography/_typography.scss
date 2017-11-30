@@ -4,10 +4,24 @@ input,
 select,
 optgroup,
 textarea {
-	color: $color__text-main;
+	color: $color-text;
 	font-family: $font__main;
-	@include font-size(1);
+	font-weight: $font-weight-light;
+	@include font-size(0.8);
 	line-height: $font__line-height-body;
+	letter-spacing: $font-letter-spacing;
+
+	@media only screen and (min-width: $device-sm) {
+		@include font-size(0.7);
+	}
+
+	@media only screen and (min-width: $device-md) {
+		font-size: 1.4vw;
+	}
+
+	@media only screen and (min-width: $device-lg) {
+		@include font-size(0.8);
+	}
 }
 
 @import "headings";

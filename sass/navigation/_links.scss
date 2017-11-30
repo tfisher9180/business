@@ -1,19 +1,15 @@
 a {
-	color: $color__link;
+	color: $color-secondary;
+	text-decoration: none;
+	transition: color $base-transition;
 
 	&:visited {
-		color: $color__link-visited;
+		color: $color-secondary;
 	}
 	&:hover,
 	&:focus,
 	&:active {
-		color: $color__link-hover;
-	}
-	&:focus {
-		outline: thin dotted;
-	}
-	&:hover,
-	&:active {
+		color: darken( $color-primary, 15% );
 		outline: 0;
 	}
 }

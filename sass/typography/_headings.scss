@@ -1,3 +1,54 @@
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
 	clear: both;
+	line-height: $font__line-height-headings;
+	color: $color-headings;
+	font-weight: $font-weight-medium;
+
+	a {
+		color: inherit;
+	}
+}
+
+h1, h2, h3,
+.h1, .h2, .h3 {
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+h4, h5, h6,
+.h4, .h5, .h6 {
+	margin-top: 15px;
+	margin-bottom: 7.5px;
+}
+
+h1,
+.h1 {
+	font-size: 3em;
+	font-weight: $font-weight-bold;
+}
+
+h2,
+.h2 {
+	font-size: 2.6em;
+}
+
+h3,
+.h3 {
+	font-size: 2.2em;
+}
+
+h4,
+.h4 {
+	font-size: 2em;
+}
+
+h5,
+.h5 {
+	font-size: 1.8em;
+}
+
+h6,
+.h6 {
+	font-size: 1.6em;
 }

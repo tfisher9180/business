@@ -23,6 +23,7 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 /*--------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
+# Font Awesome
 # Reset
 # Normalize
 # Typography
@@ -35,6 +36,7 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 # Alignments
 # Clearings
 # Content
+  ## Header
 	## Posts and pages
 	## Comments
 # Widgets
@@ -45,6 +47,11 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 --------------------------------------------------------------*/
 @import "variables-site/variables-site";
 @import "mixins/mixins-master";
+
+/*--------------------------------------------------------------
+# Font Awesome
+--------------------------------------------------------------*/
+@import "assets/font-awesome";
 
 /*--------------------------------------------------------------
 # Reset
