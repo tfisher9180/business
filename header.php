@@ -46,8 +46,10 @@
 			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'business' ); ?></button>
 			<?php
 				wp_nav_menu( array(
-					'theme_location' => 'menu-1',
+					'theme_location' => 'site-navigation',
 					'menu_id'        => 'primary-menu',
+					'menu_class'	 => 'menu',
+					'container'		 => 'false',
 				) );
 			?>
 		</nav><!-- #site-navigation -->

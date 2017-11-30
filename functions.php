@@ -42,6 +42,12 @@ if ( ! function_exists( 'business_setup' ) ) :
 		 */
 		add_theme_support( 'post-thumbnails' );
 
+		// This theme uses wp_nav_menu() in two locations.
+		register_nav_menus( array(
+			'site-navigation' 			=> esc_html__( 'Site Navigation', 'business' ),
+			'secondary-navigation'		=> esc_html__( 'Secondary Navigation', 'business' ),
+		) );
+
 		/*
 		 * Switch default core markup for search form, comment form, and comments
 		 * to output valid HTML5.
@@ -77,70 +83,6 @@ if ( ! function_exists( 'business_setup' ) ) :
 	}
 endif;
 add_action( 'after_setup_theme', 'business_setup' );
-
-function business_nav_menus() {
-	$nav_menus = array(
-		'site-navigation' 			=> esc_html__( 'Site Navigation', 'business' ),
-		'secondary-navigation'	=> esc_html__( 'Secondary Navigation', 'business' ),
-	);
-
-	if ( get_theme_mod( 'separate_desktop_mobile_menu' ) == 1 ) {
-		$nav_menus[ 'mobile-navigation' ] = esc_html__( 'Mobile Navigation', 'business' );
-		if ( ! wp_get_nav_menu_object( 'Mobile Navigation' ) ) {
-			if ( ! has_nav_menu( 'mobile-navigation' ) ) {
-				$menu_id = wp_create_nav_menu( 'Mobile Navigation' );
-				$locations = get_theme_mod( 'nav_menu_locations' );
-				$locations[ 'mobile-navigation' ] = $menu_id;
-				set_theme_mod( 'nav_menu_locations', $locations );
-			}
-		}
-	}
-	// This theme uses wp_nav_menu() in two-three locations.
-	register_nav_menus( $nav_menus );
-}
-add_action( 'after_setup_theme', 'business_nav_menus' );
-
-function business_sync_nav_menus( $nav_menu_id ) {
-	if ( did_action( 'wp_update_nav_menu' ) === 1 ) {
-		if ( get_theme_mod( 'separate_desktop_mobile_menu' ) == 1 ) {
-			$menus = get_theme_mod( 'nav_menu_locations' );
-			if ( array_search( $nav_menu_id, $menus ) === 'site-navigation' ) {
-				// the updated menu is assigned to the site-navigation menu location
-				$mobile_navigation_id = get_term( $menus[ 'mobile-navigation' ], 'nav_menu' )->term_id;
-
-				$site_navigation_menu_items = wp_get_nav_menu_items( $nav_menu_id );
-				$mobile_navigation_menu_items = wp_get_nav_menu_items( $mobile_navigation_id );
-
-				$site_navigation_menu_items = json_decode( json_encode( $site_navigation_menu_items ), true );
-				$mobile_navigation_menu_items = json_decode( json_encode( $mobile_navigation_menu_items ), true );
-
-				$menu_items = array_diff( $site_navigation_menu_items, $mobile_navigation_menu_items );
-				var_dump( $menu_items );
-
-				foreach ( $menu_items as $index => $info ) {
-					$menu_data = array(
-						'menu-item-db-id'				=> $info[ 'db_id' ],
-						'menu-item-object-id' 	=> $info[ 'object_id' ],
-						'menu-item-object' 			=> $info[ 'object' ],
-						'menu-item-parent-id' 	=> $info[ 'post_parent' ],
-						'menu-item-position' 		=> $info[ 'menu_order' ],
-						'menu-item-type' 				=> $info[ 'type' ],
-						'menu-item-title' 			=> $info[ 'title' ],
-						'menu-item-url' 				=> $info[ 'url' ],
-						'menu-item-description' => $info[ 'description' ],
-						'menu-item-attr-title' 	=> $info[ 'attr_title' ],
-						'menu-item-target' 			=> $info[ 'target' ],
-						'menu-item-classes' 		=> implode( " ", $info[ 'classes' ] ),
-						'menu-item-xfn' 				=> $info[ 'xfn' ],
-						'menu-item-status' 			=> $info[ 'post_status' ]
-					);
-					wp_update_nav_menu_item( $mobile_navigation_id, 0, $menu_data );
-				}
-			}
-		}
-	}
-}
-add_action( 'wp_update_nav_menu', 'business_sync_nav_menus' );
 
 function business_fonts_url() {
 	$fonts_url = '';
@@ -208,6 +150,22 @@ function business_widgets_init() {
 }
 add_action( 'widgets_init', 'business_widgets_init' );
 
+function business_navigation_localize_vars() {
+	$businessNavigation = array();
+	$businessNavigation[ 'screenReaderText' ] = array(
+		'expand'					=> __( 'Expand child menu', 'business' ),
+		'collapse'					=> __( 'Collapse child menu', 'business' ),
+	);
+
+	if ( get_theme_mod( 'overview_pages' ) == 1 ) {
+		$businessNavigation[ 'menus' ] = array(
+			'overview'				=> __( 'Overview', 'business' ),
+		);
+	}
+
+	return $businessNavigation;
+}
+
 /**
  * Enqueue scripts and styles.
  */
@@ -217,10 +175,8 @@ function business_scripts() {
 	wp_enqueue_style( 'business-style', get_stylesheet_uri() );
 
 	wp_enqueue_script( 'business-navigation', get_template_directory_uri() . '/js/navigation.js', array( 'jquery' ), '20151215', true );
-	wp_localize_script( 'business-navigation', 'businessScreenReaderText', array(
-		'expand'					=> __( 'Expand child menu', 'business' ),
-		'collapse'				=> __( 'Collapse child menu', 'business' ),
-	));
+
+	wp_localize_script( 'business-navigation', 'businessNavigation', business_navigation_localize_vars() );
 
 	wp_enqueue_script( 'business-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 

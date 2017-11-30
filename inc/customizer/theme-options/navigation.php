@@ -8,7 +8,7 @@ $wp_customize->add_section( 'navigation', array(
 
 // Separate desktop and mobile menus
 // -----------------------------
-$wp_customize->add_setting( 'separate_desktop_mobile_menu', array(
+$wp_customize->add_setting( 'overview_pages', array(
 	'default'						=> '',
 	'type'							=> 'theme_mod',
 	'capability'				=> 'edit_theme_options',
@@ -16,9 +16,9 @@ $wp_customize->add_setting( 'separate_desktop_mobile_menu', array(
 	'sanitize_callback'	=> 'business_sanitize_checkbox',
 ));
 
-$wp_customize->add_control( 'separate_desktop_mobile_menu', array(
+$wp_customize->add_control( 'overview_pages', array(
 	'type'							=> 'checkbox',
 	'section'						=> 'navigation',
-	'label'							=> __( 'Create separate WordPress menus for desktop and mobile views.', 'business' ),
-	'description'				=> __( 'If checked, you will be able to create a different menu in the WordPress backend for devices less than 768px, and devices larger than 768px. If unchecked, both locations will use the same WordPress menu.', 'business' ),
+	'label'							=> __( 'Overview Pages', 'business' ),
+	'description'				=> __( 'Enables the dynamic creation of "Overview" pages on mobile devices less than 992px for better menu accessibility.', 'business' ),
 ));
