@@ -33,6 +33,11 @@ function business_customize_register( $wp_customize ) {
 	require get_template_directory() . '/inc/customizer/wordpress-options.php';
 
 	/**
+	 * Theme Options - Site Identity
+	**/
+	require get_template_directory() . '/inc/customizer/theme-options/site-identity.php';
+
+	/**
 	 * Theme Options - Navigation
 	**/
 	require get_template_directory() . '/inc/customizer/theme-options/navigation.php';

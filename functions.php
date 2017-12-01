@@ -153,7 +153,7 @@ add_action( 'widgets_init', 'business_widgets_init' );
 function business_get_social_menu_markup() {
 	$social_networks = array(
 		'facebook'			=> get_theme_mod( 'url_facebook' ),
-		'twitter'				=> get_theme_mod( 'url_twitter' ),
+		'twitter'			=> get_theme_mod( 'url_twitter' ),
 		'instagram'			=> get_theme_mod( 'url_instagram' ),
 		'google-plus'		=> get_theme_mod( 'url_google' ),
 		'linkedin'			=> get_theme_mod( 'url_linkedin' ),

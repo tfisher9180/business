@@ -30,13 +30,13 @@
 		<div id="topbar">
 			<div class="container">
 				<div class="row">
-					<div class="flex-container column">
+					<div class="flex-container column toggle-container">
 						<button type="button" class="btn toggle-btn" aria-controls="topbar-content" aria-expanded="false">
 							<span class="screen-reader-text"><?php esc_html_e( 'Toggle topbar with business info', 'business' ); ?></span>
 							<span class="fa fa-angle-down"></span>
 						</button>
 						<div id="topbar-content" class="toggle-content" aria-expanded="false">
-							<div class="flex-container between col">
+							<div class="flex-container column center col row-md between-md">
 								<?php business_get_business_info_markup(); ?>
 								<?php business_get_social_menu_markup(); ?>
 							</div>
@@ -46,6 +46,22 @@
 			</div>
 		</div>
 		<?php endif; ?>
+
+		<div id="brandbar">
+			<div class="container">
+				<div class="site-logo">
+				<?php if ( has_custom_logo() ) :
+					the_custom_logo();
+				elseif ( get_theme_mod( 'theme_demo_logo' ) == 1 ): ?>
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+						<img src="<?php echo get_template_directory_uri() . '/images/logo.svg' ?>" alt="<?php esc_attr_e( get_bloginfo( 'name' ) ) . ' logo'; ?>" />
+					</a>
+				<?php else: ?>
+					<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+				<?php endif; ?>
+				</div>
+			</div>
+		</div>
 
 	</header>
 

@@ -29,4 +29,28 @@
   &.between {
     justify-content: space-between;
   }
+
+  &.align-center,
+  &.center {
+    align-items: center;
+  }
+
+  &.justify-center,
+  &.center {
+    justify-content: center;
+  }
+
+  &.wrap {
+    flex-wrap: wrap;
+  }
+
+  @media (min-width: $device-md) {
+    &.row-md {
+      flex-direction: row;
+    }
+
+    &.between-md {
+      justify-content: space-between;
+    }
+  }
 }

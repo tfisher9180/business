@@ -3903,15 +3903,95 @@ a:hover, a:focus, a:active {
 	        justify-content: space-between;
 }
 
+.flex-container.align-center, .flex-container.center {
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+}
+
+.flex-container.justify-center, .flex-container.center {
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+}
+
+.flex-container.wrap {
+	-ms-flex-wrap: wrap;
+	    flex-wrap: wrap;
+}
+
+@media (min-width: 992px) {
+	.flex-container.row-md {
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		    -ms-flex-direction: row;
+		        flex-direction: row;
+	}
+	.flex-container.between-md {
+		-webkit-box-pack: justify;
+		    -ms-flex-pack: justify;
+		        justify-content: space-between;
+	}
+}
+
 .toggle-content {
 	display: none;
+}
+
+img {
+	display: block;
 }
 
 /*--------------------------------------------------------------
 ## Header
 --------------------------------------------------------------*/
 #topbar {
+	position: relative;
 	background-color: #222;
+	color: rgba(255, 255, 255, 0.6);
+	overflow: hidden;
+}
+
+#topbar:before {
+	content: '';
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+	display: block;
+	pointer-events: none;
+	-webkit-transform: rotateZ(180deg);
+	        transform: rotateZ(180deg);
+}
+
+#topbar .social {
+	padding: 10px 0;
+}
+
+#topbar .social a {
+	padding: 0 15px;
+}
+
+@media (min-width: 992px) {
+	#topbar .social a {
+		padding: 0 10px;
+	}
+}
+
+@media (min-width: 992px) {
+	#topbar .social {
+		padding: 0;
+	}
+}
+
+#topbar a {
+	color: rgba(255, 255, 255, 0.6);
+}
+
+#topbar a:hover, #topbar a:focus {
+	color: #fff;
 }
 
 #topbar .toggle-content,
@@ -3919,18 +3999,102 @@ a:hover, a:focus, a:active {
 	width: 100%;
 }
 
+#topbar .toggle-content,
+#topbar .toggle-btn {
+	padding: 10px 0;
+}
+
 #topbar .toggle-content {
 	-webkit-box-ordinal-group: 2;
 	    -ms-flex-order: 1;
 	        order: 1;
+	font-size: 13px;
+	font-weight: 500;
+}
+
+@media (min-width: 992px) {
+	#topbar .toggle-content {
+		display: block;
+		padding: 20px 0;
+	}
 }
 
 #topbar .toggle-btn {
 	-webkit-box-ordinal-group: 3;
 	    -ms-flex-order: 2;
 	        order: 2;
-	padding: 10px 0;
 	font-size: 1.2em;
+}
+
+@media (min-width: 992px) {
+	#topbar .toggle-btn {
+		display: none;
+	}
+}
+
+#topbar .toggled .toggle-btn .fa:before {
+	content: '\f106';
+}
+
+#topbar .business-information {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	    flex-wrap: wrap;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+}
+
+#topbar .business-information .fa,
+#topbar .business-information > * {
+	margin-right: 10px;
+}
+
+#topbar .business-information .fa {
+	color: #fcb514;
+}
+
+#topbar .business-information > * {
+	line-height: 2;
+}
+
+@media (min-width: 992px) {
+	#topbar .business-information > * {
+		line-height: inherit;
+	}
+}
+
+#brandbar .site-logo {
+	padding: 10px 0;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+}
+
+#brandbar .site-logo a {
+	max-width: 50%;
+}
+
+@media (min-width: 992px) {
+	#brandbar .site-logo a {
+		max-width: 245px;
+	}
+}
+
+@media (min-width: 992px) {
+	#brandbar .site-logo {
+		-webkit-box-pack: start;
+		    -ms-flex-pack: start;
+		        justify-content: flex-start;
+	}
 }
 
 /*--------------------------------------------------------------

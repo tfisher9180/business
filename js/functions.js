@@ -10,10 +10,11 @@
 
     var toggleFn = function() {
       var content = $( this ).siblings( '.toggle-content' );
+      var container = $( this ).closest( '.toggle-container' );
 
       content.slideToggle( 200 );
-      $( this ).parent().toggleClass( 'toggled' );
-      $( this ).add( content ).attr( 'aria-expanded', $( this ).hasClass( 'toggled' ) );
+      container.toggleClass( 'toggled' );
+      $( this ).add( content ).attr( 'aria-expanded', container.hasClass( 'toggled' ) );
     };
 
     toggleBtns.on( 'click', toggleFn );
