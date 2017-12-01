@@ -8,6 +8,10 @@
     margin-left: -$container-padding;
     margin-right: -$container-padding;
 
+    &.relative {
+      position: relative;
+    }
+
     .col {
       padding: 0 $container-padding;
     }

@@ -1,9 +1,22 @@
 (function( $ ) {
 
 	// init
-	var siteNavContainer = $( '#site-navigation' );
-	var siteNavMenu = $( '#primary-menu' );
-	var siteNavParents = siteNavMenu.find( '.menu-item-has-children > a, .page_item_has_children > a' );
+	var siteHeader 				= $( '#site-header' );
+	var siteNavContainer 	= $( '#site-navigation' );
+	var siteNavMenu 			= $( '#primary-menu' );
+	var siteNavParents 		= siteNavMenu.find( '.menu-item-has-children > a, .page_item_has_children > a' );
+	var menuToggle 				= siteHeader.find( '.menu-toggle' );
+
+	// init site navigation
+	(function() {
+		if ( ! siteNavContainer.length || ! menuToggle.length ) {
+			return;
+		}
+
+		$( window ).on( 'resize load', function() {
+			$( window ).width() < 992 ? siteNavContainer.attr( 'aria-expanded', 'false' ) : siteNavContainer.removeAttr( 'aria-expanded' );
+		});
+	})();
 
 	// Toggle an overview menu item on mobile devices
 	(function() {

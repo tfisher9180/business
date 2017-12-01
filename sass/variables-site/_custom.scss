@@ -1,0 +1,7 @@
+$navbar-mobile-height: 55px;
+
+$logo-small-max-width: 60%;
+$logo-large-max-width: 245px;
+
+$off-canvas-overlay-menu-width: 300px;
+$off-canvas-push-menu-width: calc( 100% - #{$navbar-mobile-height} );

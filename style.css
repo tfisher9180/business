@@ -3631,6 +3631,7 @@ button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
+	position: relative;
 	border: 0;
 	border-color: transparent;
 	border-radius: 0;
@@ -3732,6 +3733,92 @@ a:hover, a:focus, a:active {
 /*--------------------------------------------------------------
 ## Menus
 --------------------------------------------------------------*/
+#site-navigation {
+	position: fixed;
+	z-index: 100;
+	height: 100%;
+	width: 300px;
+	background: #fff;
+	border: 1px solid #ccc;
+	top: 0;
+	left: 0;
+	-webkit-transform: translate(-100%, 0);
+	        transform: translate(-100%, 0);
+	overflow-x: hidden;
+	overflow-y: auto;
+	visibility: hidden;
+	transition: 0.5s;
+}
+
+#site-navigation .close {
+	padding: 20px;
+}
+
+#site-navigation .close-icon {
+	position: relative;
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+	overflow: hidden;
+}
+
+#site-navigation .close-icon:before, #site-navigation .close-icon:after {
+	content: '';
+	position: absolute;
+	height: 2px;
+	width: 100%;
+	top: 50%;
+	left: 0;
+	margin-top: -1px;
+	background: #222;
+}
+
+#site-navigation .close-icon:before {
+	-webkit-transform: rotate(45deg);
+	        transform: rotate(45deg);
+}
+
+#site-navigation .close-icon:after {
+	-webkit-transform: rotate(-45deg);
+	        transform: rotate(-45deg);
+}
+
+#site-navigation.toggled {
+	visibility: visible;
+	-webkit-transform: translate(0, 0);
+	        transform: translate(0, 0);
+}
+
+.admin-bar #site-navigation {
+	-webkit-transform: translate(-100%, 46px);
+	        transform: translate(-100%, 46px);
+}
+
+.admin-bar #site-navigation.toggled {
+	-webkit-transform: translate(0, 46px);
+	        transform: translate(0, 46px);
+}
+
+@media (min-width: 782px) {
+	.admin-bar #site-navigation.toggled {
+		-webkit-transform: translate(0, 32px);
+		        transform: translate(0, 32px);
+	}
+}
+
+@media (min-width: 782px) {
+	.admin-bar #site-navigation {
+		-webkit-transform: translate(-100%, 32px);
+		        transform: translate(-100%, 32px);
+	}
+}
+
+.menu,
+.menu .sub-menu {
+	margin: 0;
+	list-style: none;
+}
+
 .site-main .comment-navigation, .site-main
 .posts-navigation, .site-main
 .post-navigation {
@@ -3870,6 +3957,10 @@ a:hover, a:focus, a:active {
 	margin-right: -20px;
 }
 
+.container .row.relative {
+	position: relative;
+}
+
 .container .row .col {
 	padding: 0 20px;
 }
@@ -3934,12 +4025,32 @@ a:hover, a:focus, a:active {
 	}
 }
 
-.toggle-content {
-	display: none;
-}
-
 img {
 	display: block;
+}
+
+body:before {
+	content: '';
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 99;
+	cursor: pointer;
+	visibility: hidden;
+	opacity: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	transition: 0.5s;
+}
+
+body.toggle-overlay {
+	overflow: hidden;
+}
+
+body.toggle-overlay:before {
+	visibility: visible;
+	opacity: 1;
 }
 
 /*--------------------------------------------------------------
@@ -4005,6 +4116,7 @@ img {
 }
 
 #topbar .toggle-content {
+	display: none;
 	-webkit-box-ordinal-group: 2;
 	    -ms-flex-order: 1;
 	        order: 1;
@@ -4014,7 +4126,7 @@ img {
 
 @media (min-width: 992px) {
 	#topbar .toggle-content {
-		display: block;
+		display: block !important;
 		padding: 20px 0;
 	}
 }
@@ -4026,14 +4138,14 @@ img {
 	font-size: 1.2em;
 }
 
+#topbar .toggle-btn.toggled .fa:before {
+	content: '\f106';
+}
+
 @media (min-width: 992px) {
 	#topbar .toggle-btn {
 		display: none;
 	}
-}
-
-#topbar .toggled .toggle-btn .fa:before {
-	content: '\f106';
 }
 
 #topbar .business-information {
@@ -4067,34 +4179,136 @@ img {
 }
 
 #brandbar .site-logo {
-	padding: 10px 0;
+	padding: 15px 0;
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
 	-webkit-box-align: center;
 	    -ms-flex-align: center;
 	        align-items: center;
-	-webkit-box-pack: center;
-	    -ms-flex-pack: center;
-	        justify-content: center;
 }
 
-#brandbar .site-logo a {
-	max-width: 50%;
+#brandbar .site-logo.text-logo {
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
+	text-align: center;
+}
+
+#brandbar .site-logo.text-logo .site-title,
+#brandbar .site-logo.text-logo .site-description {
+	margin: 0;
+	text-transform: uppercase;
+}
+
+#brandbar .site-logo.text-logo .site-title {
+	font-size: 1.8em;
+	font-weight: 700;
+	color: #fcb514;
+}
+
+#brandbar .site-logo.text-logo .site-title a {
+	color: #fcb514;
+}
+
+#brandbar .site-logo.text-logo .site-description {
+	font-weight: 400;
+	font-size: 0.86666667em;
 }
 
 @media (min-width: 992px) {
-	#brandbar .site-logo a {
+	#brandbar .site-logo.text-logo {
+		text-align: left;
+		-webkit-box-align: start;
+		    -ms-flex-align: start;
+		        align-items: flex-start;
+	}
+}
+
+#brandbar .site-logo > a {
+	max-width: 60%;
+}
+
+@media (min-width: 992px) {
+	#brandbar .site-logo > a {
 		max-width: 245px;
 	}
 }
 
-@media (min-width: 992px) {
-	#brandbar .site-logo {
-		-webkit-box-pack: start;
-		    -ms-flex-pack: start;
-		        justify-content: flex-start;
-	}
+#mobile-navbar {
+	background-color: #0e2b4c;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
+}
+
+#mobile-navbar .toggle-btn {
+	color: #fff;
+	font-size: 18px;
+}
+
+#mobile-navbar .flex-container {
+	min-height: 55px;
+	-webkit-box-align: stretch;
+	    -ms-flex-align: stretch;
+	        align-items: stretch;
+}
+
+#mobile-navbar .flex-container .navbar-btn {
+	-webkit-box-flex: 0;
+	    -ms-flex: 0 0 55px;
+	        flex: 0 0 55px;
+}
+
+#mobile-navbar .flex-container .navbar-btn .navbar-stretch {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	height: 100%;
+	width: 100%;
+}
+
+#mobile-navbar .menu-icon,
+#mobile-navbar .menu-icon:before,
+#mobile-navbar .menu-icon:after {
+	display: block;
+	background: #fff;
+}
+
+#mobile-navbar .menu-icon:before,
+#mobile-navbar .menu-icon:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#mobile-navbar .menu-icon {
+	position: relative;
+	width: 37%;
+	height: 2px;
+}
+
+#mobile-navbar .menu-icon:before {
+	-webkit-transform: translateY(-6px);
+	        transform: translateY(-6px);
+}
+
+#mobile-navbar .menu-icon:after {
+	-webkit-transform: translateY(6px);
+	        transform: translateY(6px);
+}
+
+#mobile-navbar-search {
+	position: absolute;
+	width: 100%;
+	top: 100%;
+	left: 0;
+	display: none;
+	z-index: 100;
 }
 
 /*--------------------------------------------------------------

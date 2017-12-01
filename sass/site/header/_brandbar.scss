@@ -1,21 +1,47 @@
 #brandbar {
 
 	.site-logo {
-		padding: 10px 0;
+		padding: 15px 0;
 		display: flex;
 		align-items: center;
-		justify-content: center;
 
-		a {
+		&.text-logo {
+			flex-direction: column;
+			text-align: center;
+
+			.site-title,
+			.site-description {
+				margin: 0;
+				text-transform: uppercase;
+			}
+
+			.site-title {
+				font-size: 1.8em;
+				font-weight: $font-weight-bold;
+				color: $color-secondary;
+
+				a {
+					color: $color-secondary;
+				}
+			}
+
+			.site-description {
+				font-weight: $font-weight-normal;
+				font-size: 0.86666667em;
+			}
+
+			@media (min-width: $device-md) {
+				text-align: left;
+				align-items: flex-start;
+			}
+		}
+
+		> a {
 			max-width: $logo-small-max-width;
 
 			@media (min-width: $device-md) {
 				max-width: $logo-large-max-width;
 			}
-		}
-
-		@media (min-width: $device-md) {
-			justify-content: flex-start;
 		}
 	}
 }
